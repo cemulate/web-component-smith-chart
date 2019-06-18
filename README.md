@@ -1,52 +1,45 @@
-web-component-polyomino
+web-component-smith-chart
 =======================
 
-A web component for creating, editing, or displaying polyominos (i.e. generalizations of tetris pieces). 
-Useful for games, applications, or solvers that require the user to specify certain polyominos.
+A web component for displaying or selecting points on a Smith Chart.
 
-[Install from npm](https://www.npmjs.com/package/web-component-polyomino).
+[Install from npm](https://www.npmjs.com/package/web-component-smith-chart).
 
-See [an example codepen demo](https://codepen.io/cemulate/pen/dExpJw) or a [project using this component](https://cemulate.github.io/polyomino-solver/).
+See [an example codepen demo](https://codepen.io/cemulate/pen/RzRjaQ).
 
 ## Usage
 
 Import the library in your main entrypoint:
 
 ```
-import 'web-component-polyomino';
+import 'web-component-smith-chart';
 ```
 
 Or with a script tag (using unpkg), as:
 ```
-<script src="https://unpkg.com/web-component-polyomino@1/dist/web-component-polyomino.js"/>
+<script src="https://unpkg.com/web-component-smith-chart@1/dist/web-component-smith-chart.js"/>
 ```
 
 The custom element is now available and may be used in HTML directly as with:
 ```
-<polyomino-control size=10 mode="create" value="[[0,0],[0,1],[1,0],[1,1]]"></polyomino-control>
+<smith-chart r="[0,0]"></smith-chart>
 ```
+
+The `smith-chart` element has two attributes:
+* `r`: The reflection coefficient; a complex number of magnitude no greater than 1, represented as an array of components `[real, imag]`.
+Corresponds to the (x, y) position selected on the smith chart
+* `z`: The corresponding normalized load impedance; again a complex number represented in the same way
+
+`r` and `z` are automatically kept in sync (i.e., each is the correct value corresponding to the other on the Smith chart), and either can be set to change the selected point on the chart.
+In the example above, the `smith-chart` element's `z` value will be `[1,0]`, corresponding to the `r`-value of `[0,0]`.
+
+`r` and `z` will both be `null` when the element is "unlocked", meaning the cursor will follow the mouse around the element.
+Upon clicking, a point is "selected" and `r` and `z` will be populated with their correct values (and a `change` event is fired).
+Clicking the element again un-selects/unlocks the point.
 
 Attributes on `polyomino-control` elements are as follows:
 
-* `size`: The size of the (square) editing or display grid.
-Has nothing to do with the style/CSS dimensions of the element, but only the logical polyomino grid.
-* `value`: The polyomino (or, in `display-multiple` mode only, a list of polyominos) to display, represented as a list of coordinates `[[x1, y1], [x2, y2], ...]`
-* `mode`: One of three string values:
-    - `create`:
-    The standard mode.
-    Background grid cells are white, and filled-in cells representing the object polyomino are a chosen active color (`--create-color`)
-    - `create-region`:
-    Functionally equivalent to `create`, but with an inverse UI:
-    The background is a blank canvas while only the filled in cells are visible and white.
-    Intended for creating the destination areas in polyomino fitting problems, for example.
-    - `display`:
-    Editing is disabled, and background/blank grid cells are not displayed.
-    Intended for displaying static polyominos.
-    - `display-multiple`:
-    In this mode, `value` takes a *list* of polyominos, all of which will be displayed.
-    The first of the list is treated as a "backdrop" and will be displayed in white, while the rest will be displayed in differing colors on top.
-
 The component respects the following CSS variables, which can be used to style it:
 
-* `--cell-color`: The color of filled in cells during `create` and `display` mode.
-Default `cyan`.
+* `--hover-color`: The color of the highlighted guide lines / cursor when hovering over the element
+* `--select-color`: The color of the guide lines when a point is selected
