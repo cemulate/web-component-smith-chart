@@ -1,6 +1,6 @@
 {
   "name": "web-component-smith-chart",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Display and/or select points on a smith chart",
   "main": "dist/web-component-smith-chart.js",
   "module": "src/index.js",

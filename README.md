@@ -17,7 +17,7 @@ import 'web-component-smith-chart';
 
 Or with a script tag (using unpkg), as:
 ```
-<script src="https://unpkg.com/web-component-smith-chart@1/dist/web-component-smith-chart.js"/>
+<script src="https://unpkg.com/web-component-smith-chart@1.0.1/dist/web-component-smith-chart.js"/>
 ```
 
 The custom element is now available and may be used in HTML directly as with:
